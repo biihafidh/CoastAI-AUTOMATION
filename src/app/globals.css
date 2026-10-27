@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #15283a; background: #f7fafc; }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+.nav { display:flex; justify-content:space-between; align-items:center; padding:24px 0; gap:20px; }
+.brand { font-size:1.3rem; font-weight:800; letter-spacing:-.04em; color:#0B2338; }
+.brand span { color:#14B8A6; }
+.navlinks { display:flex; gap:22px; align-items:center; font-size:.94rem; }
+.button { display:inline-block; background:#14B8A6; color:#062a34; padding:13px 18px; border-radius:10px; font-weight:750; }
+.hero { padding:78px 0 84px; background:radial-gradient(circle at 80% 20%,#d5f7f0 0,transparent 32%),linear-gradient(135deg,#0B2338,#103650); color:white; }
+.eyebrow { color:#6ee7d5; text-transform:uppercase; letter-spacing:.15em; font-size:.78rem; font-weight:800; }
+h1 { font-size:clamp(2.7rem,6vw,5rem); line-height:1.04; letter-spacing:-.055em; max-width:800px; margin:18px 0; }
+.hero p { font-size:1.15rem; line-height:1.7; max-width:640px; color:#d5e4ec; }
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
+.button-outline { display:inline-block; border:1px solid #7995a7; color:white; padding:13px 18px; border-radius:10px; font-weight:700; }
+section { padding:72px 0; }
+.section-head { max-width:700px; margin-bottom:30px; }
+h2 { font-size:clamp(2rem,4vw,3rem); letter-spacing:-.04em; margin:0 0 14px; color:#0B2338; }
+.muted { color:#607487; line-height:1.7; }
+.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { background:white; border:1px solid #e2eaf0; border-radius:18px; padding:25px; box-shadow:0 8px 30px #0b23380a; }
+.card .num { color:#0d9d8d; font-weight:800; font-size:.85rem; }
+.card h3 { color:#0B2338; margin:12px 0 8px; font-size:1.18rem; }
+.card p { color:#607487; line-height:1.65; margin:0; }
+.steps { background:#eaf3f6; }
+.cta { background:#0B2338; color:white; border-radius:22px; padding:40px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.cta h2 { color:white; }
+footer { padding:28px 0; border-top:1px solid #e2eaf0; color:#607487; font-size:.9rem; }
+@media(max-width:760px) { .navlinks a:not(.button) { display:none; } .cards { grid-template-columns:1fr; } .hero { padding:58px 0; } .cta { flex-direction:column; align-items:flex-start; padding:28px; } }
