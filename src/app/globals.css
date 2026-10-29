@@ -33,3 +33,8 @@ h2 { font-size:clamp(2rem,4vw,3rem); letter-spacing:-.04em; margin:0 0 14px; col
 .cta h2 { color:white; }
 footer { padding:28px 0; border-top:1px solid #e2eaf0; color:#607487; font-size:.9rem; }
 @media(max-width:760px) { .navlinks a:not(.button) { display:none; } .cards { grid-template-columns:1fr; } .hero { padding:58px 0; } .cta { flex-direction:column; align-items:flex-start; padding:28px; } }
+
+.whatsapp-float { position:fixed; right:22px; bottom:22px; z-index:1000; display:flex; align-items:center; gap:10px; background:#25D366; color:#062a20; border:2px solid #ffffff; border-radius:999px; padding:13px 18px; box-shadow:0 8px 28px #0b23383b; font-weight:800; }
+.whatsapp-float > span:first-child { font-size:1.35rem; line-height:1; }
+.whatsapp-float:hover { transform:translateY(-2px); box-shadow:0 12px 32px #0b23384a; }
+@media(max-width:760px) { .whatsapp-float { right:14px; bottom:14px; padding:14px 16px; } .whatsapp-label { display:inline; } }
