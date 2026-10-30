@@ -1,6 +1,6 @@
 const DEFAULT_MODEL = "gpt-4.1-mini";
 
-export async function generateCustomerReply(message: string) {
+export async function generateCustomerReply(message: string, history: { role: "assistant" | "user"; content: string }[] = []) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
@@ -21,7 +21,7 @@ export async function generateCustomerReply(message: string) {
         "Do not request passwords, card numbers, PINs, or one-time passcodes.",
         "Keep replies short enough for WhatsApp, ideally under 100 words.",
       ].join(" "),
-      input: message,
+      input: [...history.slice(-6), { role: "user", content: message }],
       max_output_tokens: 220,
     }),
   });
