@@ -1,3 +1,5 @@
+import ChatWidget from "@/components/ChatWidget";
+
 const services = [
   { n: "01", title: "AI customer assistant", text: "Answer common questions quickly and guide customers to the right next step, any time of day." },
   { n: "02", title: "Lead capture & follow-up", text: "Collect enquiries, organize prospects, and follow up so fewer opportunities go cold." },
@@ -26,6 +28,7 @@ export default function Home() {
     </div></section>
     <section><div className="container"><div className="cta"><div><div className="eyebrow">Ready to simplify?</div><h2>Let's automate the busywork.</h2><p className="muted" style={{color:"#d5e4ec"}}>Tell us what slows your business down. We'll explore a practical next step.</p></div><a className="button" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Message us on WhatsApp ↗</a></div></div></section>
     <footer><div className="container">© {new Date().getFullYear()} CoastAI Automation Agency · Mombasa, Kenya</div></footer>
+    <ChatWidget />
     <a className="whatsapp-float" href={whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="Chat with CoastAI on WhatsApp"><span aria-hidden="true">☏</span><span className="whatsapp-label">Chat on WhatsApp</span></a>
   </main>;
 }
