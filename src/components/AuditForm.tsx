@@ -1,0 +1,7 @@
+"use client";
+import { FormEvent, useState } from "react";
+export default function AuditForm() {
+ const [name,setName]=useState(""); const [contact,setContact]=useState(""); const [business,setBusiness]=useState(""); const [challenge,setChallenge]=useState("");
+ function submit(e:FormEvent<HTMLFormElement>) { e.preventDefault(); const msg=["Hi CoastAI! I'd like a free automation audit.",`Name: ${name}`,`Email or phone: ${contact}`,`Business: ${business||"Not specified"}`,`What I'd like to automate: ${challenge}`].join("\n"); window.open("https://wa.me/254726495238?text="+encodeURIComponent(msg),"_blank","noopener,noreferrer"); }
+ return <form className="audit-form" onSubmit={submit}><input aria-label="Your name" placeholder="Your name" value={name} onChange={e=>setName(e.target.value)} required/><input aria-label="Email or phone" placeholder="Email or phone" value={contact} onChange={e=>setContact(e.target.value)} required/><input aria-label="Business name" placeholder="Business name (optional)" value={business} onChange={e=>setBusiness(e.target.value)}/><textarea aria-label="What would you like to automate?" placeholder="What's slow or repetitive in your business?" rows={4} value={challenge} onChange={e=>setChallenge(e.target.value)} required/><button type="submit">Request my free audit ↗</button><p>Your details open in WhatsApp. Nothing is sent until you press send there.</p></form>;
+}
