@@ -82,3 +82,29 @@ footer { padding:28px 0; border-top:1px solid #ffffff16; color:#879aa8; font-siz
 .chat-note { margin:0; padding:0 12px 11px; color:#748696; font-size:.69rem; text-align:center; background:white; }
 @media(max-width:850px) { .navlinks { gap:14px; } .navlinks>a:not(.button) { display:none; } .service-grid { grid-template-columns:repeat(2,1fr); } .process-grid { grid-template-columns:repeat(2,1fr); } }
 @media(max-width:600px) { .container { width:calc(100% - 32px); } .nav { min-height:72px; } .brand small { display:none; } .nav-cta { min-height:40px; padding:0 12px; font-size:.75rem; } .hero { min-height:500px; padding:72px 0; } h1 { font-size:clamp(2.65rem,12vw,4rem); } section { padding:66px 0; } .section-intro { display:block; } .section-intro p { margin-top:16px; } .service-grid,.process-grid { grid-template-columns:1fr; } .service-card { min-height:0; } .pricing-panel { flex-direction:column; align-items:flex-start; padding:28px; } .footer-inner { align-items:flex-start; flex-direction:column; } .coast-chat { right:14px; bottom:78px; } .chat-panel { height:min(500px,calc(100vh - 115px)); } .whatsapp-float { right:14px; bottom:14px; padding:13px 15px; } }
+
+/* Reference-inspired black and white layout */
+:root { --ink:#050505; --panel:#080808; --line:#dedede; --muted:#c6c6c6; --accent:#b8ff32; --white:#f8f8f8; }
+body { background:#050505; color:#f8f8f8; }
+.hero:before { background:radial-gradient(ellipse at 50% 5%,#252525 0,transparent 48%),#050505; }
+h1 span,.service-card>a,.service-number,.process-grid article>span { color:var(--accent); }
+.button,.audit-form button { background:var(--accent); color:#080808; }
+.services-section,.audit-section,.process-section { background:#050505; }
+.service-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+.service-card { min-height:126px; display:grid; grid-template-columns:36px 1fr; grid-template-rows:1fr auto; column-gap:16px; border:1px solid #d5d5d5; border-radius:17px; background:#050505; }
+.service-icon { grid-row:1 / span 2; font-size:1.35rem; }
+.service-card h3 { margin:0 0 7px; }
+.service-card>a { margin-top:14px; }
+.process-grid { grid-template-columns:repeat(3,1fr); gap:14px; }
+.process-grid article { min-height:150px; border:1px solid #d5d5d5; border-radius:17px; padding:20px; }
+.audit-panel { width:min(650px,calc(100% - 40px)); margin:0 auto; padding:34px; border:1px solid #d5d5d5; border-radius:20px; background:#050505; }
+.audit-panel h2 { font-size:clamp(1.8rem,4vw,2.5rem); margin-bottom:10px; }
+.audit-panel>p { color:var(--muted); line-height:1.6; }
+.audit-form { display:grid; gap:10px; }
+.audit-form input,.audit-form textarea { width:100%; border:1px solid #aaa; border-radius:12px; padding:14px 16px; color:white; background:#050505; font:inherit; }
+.audit-form input::placeholder,.audit-form textarea::placeholder { color:#bbb; }
+.audit-form button { min-height:48px; border:0; border-radius:999px; font-weight:850; cursor:pointer; }
+.audit-form>p { color:#999; font-size:.72rem; }
+.chat-header { background:#090909; }
+.chat-launcher { background:#090909; }
+@media(max-width:600px) { .service-grid,.process-grid { grid-template-columns:1fr; } .audit-panel { padding:24px; } }
