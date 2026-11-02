@@ -121,3 +121,57 @@ h1 span,.service-card>a,.service-number,.process-grid article>span { color:var(-
 .upgrade-card>a { margin-top:auto; color:var(--accent); font-size:.82rem; font-weight:850; }
 .upgrade-note { margin:22px 0 0; color:#929292; font-size:.78rem; line-height:1.6; }
 @media(max-width:600px) { .upgrade-grid { grid-template-columns:1fr; } .upgrade-card { min-height:180px; } }
+
+
+/* CoastAI SaaS authentication and workspace */
+.auth-shell,.dash-shell { min-height:100vh; background:#050505; color:#f8f8f8; }
+.auth-shell { display:grid; place-items:center; padding:32px 16px; }
+.auth-card,.dash-config { width:min(480px,100%); padding:38px; border:1px solid #414141; border-radius:22px; background:#0b0b0b; box-shadow:0 24px 80px #0008; }
+.auth-brand { display:inline-block; font-size:1.7rem; font-weight:950; letter-spacing:-.07em; }
+.auth-brand span { color:#b8ff32; }
+.auth-eyebrow,.dash-label { margin:28px 0 10px; color:#b8ff32; font-size:.68rem; font-weight:900; letter-spacing:.17em; }
+.auth-card h1,.dash-config h1 { margin:0; font-size:2.35rem; letter-spacing:-.06em; }
+.auth-subtitle,.dash-config p,.dash-config li { color:#aaa; line-height:1.65; }
+.auth-form { display:grid; gap:16px; margin-top:26px; }
+.auth-form label { display:grid; gap:8px; color:#ddd; font-size:.83rem; font-weight:750; }
+.auth-form input { width:100%; min-height:48px; padding:12px 14px; border:1px solid #555; border-radius:10px; background:#050505; color:white; font:inherit; }
+.auth-form button,.dash-button { display:inline-flex; justify-content:center; align-items:center; min-height:48px; padding:0 18px; border:0; border-radius:999px; background:#b8ff32; color:#080808; font-weight:900; cursor:pointer; }
+.auth-form button:disabled { opacity:.6; cursor:wait; }
+.auth-message { padding:12px; border:1px solid #626b3e; border-radius:10px; color:#d8ff91; font-size:.85rem; line-height:1.5; }
+.auth-foot { margin:20px 0 0; color:#999; font-size:.82rem; }
+.auth-foot a { color:#b8ff32; font-weight:800; }
+.dash-shell { display:grid; grid-template-columns:245px minmax(0,1fr); }
+.dash-sidebar { position:sticky; top:0; display:flex; flex-direction:column; height:100vh; padding:28px 20px; border-right:1px solid #292929; background:#080808; }
+.dash-sidebar .auth-brand { margin-bottom:30px; }
+.dash-label { margin:0 0 12px; color:#777; }
+.dash-nav { padding:13px 14px; margin:3px 0; border-radius:10px; color:#aaa; font-size:.9rem; }
+.dash-nav.active,.dash-nav:hover { background:#1a1a1a; color:#b8ff32; }
+.dash-profile { display:grid; gap:12px; margin-top:auto; padding-top:18px; border-top:1px solid #292929; color:#999; font-size:.75rem; overflow-wrap:anywhere; }
+.dash-profile button { border:0; padding:0; background:none; color:#b8ff32; font-weight:800; cursor:pointer; }
+.dash-main { width:min(1400px,100%); padding:38px clamp(20px,4vw,58px); }
+.dash-top,.dash-panel-head { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.dash-top h1 { margin:0; font-size:clamp(2rem,4vw,3.2rem); letter-spacing:-.06em; }
+.dash-top .auth-eyebrow,.dash-panel .auth-eyebrow { margin:0 0 8px; }
+.dash-muted,.dash-panel>p { color:#999; font-size:.9rem; line-height:1.6; }
+.dash-plan,.dash-tag,.lead-status { padding:7px 11px; border:1px solid #454545; border-radius:999px; color:#b8ff32; font-size:.72rem; font-weight:850; text-transform:capitalize; white-space:nowrap; }
+.dash-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:13px; margin:30px 0; }
+.dash-stats article,.dash-panel { border:1px solid #363636; border-radius:16px; background:#0b0b0b; }
+.dash-stats article { display:grid; gap:9px; padding:20px; }
+.dash-stats article span,.dash-stats small { color:#999; font-size:.78rem; }
+.dash-stats article strong { font-size:2rem; letter-spacing:-.05em; }
+.dash-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.dash-panel { padding:23px; }
+.dash-panel h2 { font-size:1.35rem; letter-spacing:-.04em; }
+.dash-empty { display:grid; justify-items:center; gap:9px; padding:34px 10px 22px; color:#b8ff32; text-align:center; }
+.dash-empty strong { color:#eee; font-size:.9rem; }
+.dash-empty span { color:#888; font-size:.78rem; }
+.leads-panel { margin-top:14px; }
+.lead-table { margin-top:20px; }
+.lead-row { display:grid; grid-template-columns:1fr 1.5fr .7fr; gap:12px; padding:13px 4px; border-bottom:1px solid #292929; color:#ccc; font-size:.82rem; overflow-wrap:anywhere; }
+.lead-head { color:#777; font-size:.7rem; font-weight:850; text-transform:uppercase; }
+.dash-footer { padding:28px 0; color:#666; font-size:.75rem; }
+.dash-config ol { padding-left:20px; }
+.dash-config li { margin:9px 0; }
+.dash-config code { color:#b8ff32; }
+@media(max-width:950px) { .dash-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:700px) { .dash-shell { display:block; } .dash-sidebar { position:relative; height:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:4px; padding:16px; } .dash-sidebar .auth-brand { grid-column:1/-1; margin:0 0 12px; } .dash-label { display:none; } .dash-nav { padding:10px 7px; text-align:center; font-size:.75rem; } .dash-profile { grid-column:1/-1; display:flex; justify-content:space-between; align-items:center; margin-top:8px; } .dash-main { padding:26px 16px; } .dash-grid { grid-template-columns:1fr; } .dash-top { align-items:flex-start; } .dash-stats { gap:8px; } .dash-stats article { padding:14px; } .dash-stats article strong { font-size:1.6rem; } .auth-card,.dash-config { padding:26px; } .lead-row { grid-template-columns:1fr 1fr .7fr; font-size:.72rem; } }
