@@ -108,3 +108,16 @@ h1 span,.service-card>a,.service-number,.process-grid article>span { color:var(-
 .chat-header { background:#090909; }
 .chat-launcher { background:#090909; }
 @media(max-width:600px) { .service-grid,.process-grid { grid-template-columns:1fr; } .audit-panel { padding:24px; } }
+
+
+/* Optional future upgrades pricing */
+.upgrades-section { background:#090909; border-top:1px solid #ffffff18; border-bottom:1px solid #ffffff18; }
+.upgrade-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.upgrade-card { display:flex; flex-direction:column; min-height:205px; padding:24px; border:1px solid #d5d5d5; border-radius:17px; background:#050505; }
+.upgrade-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+.upgrade-card h3 { margin:0; max-width:65%; font-size:1.12rem; line-height:1.35; }
+.upgrade-price { flex-shrink:0; color:var(--accent); font-size:1rem; font-weight:900; text-align:right; }
+.upgrade-card p { margin:18px 0 20px; color:var(--muted); font-size:.9rem; line-height:1.65; }
+.upgrade-card>a { margin-top:auto; color:var(--accent); font-size:.82rem; font-weight:850; }
+.upgrade-note { margin:22px 0 0; color:#929292; font-size:.78rem; line-height:1.6; }
+@media(max-width:600px) { .upgrade-grid { grid-template-columns:1fr; } .upgrade-card { min-height:180px; } }
