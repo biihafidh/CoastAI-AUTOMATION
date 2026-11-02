@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: "Automate customer conversations, capture leads, and grow your business with CoastAI. AI automation for hotels, tour operators, and service businesses in Kenya.",
   applicationName: "CoastAI",
   alternates: { canonical: "/" },
+  verification: {
+    google: "Ss64nFnXcZ_1lkCkvYSLNy3Ab9POXlD2lMcnZ4ff2ao"
+  },
   openGraph: {
     type: "website",
     url: "https://coast-ai-automation.vercel.app",
