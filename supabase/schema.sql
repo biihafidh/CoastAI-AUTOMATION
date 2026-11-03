@@ -97,17 +97,28 @@ alter table public.conversations enable row level security;
 alter table public.messages enable row level security;
 alter table public.subscriptions enable row level security;
 
+drop policy if exists "members read workspaces" on public.workspaces;
 create policy "members read workspaces" on public.workspaces for select using (public.is_workspace_member(id));
+drop policy if exists "authenticated create own workspace" on public.workspaces;
 create policy "authenticated create own workspace" on public.workspaces for insert to authenticated with check (owner_id = auth.uid());
+drop policy if exists "owners update workspace" on public.workspaces;
 create policy "owners update workspace" on public.workspaces for update to authenticated using (owner_id = auth.uid()) with check (owner_id = auth.uid());
+drop policy if exists "members read membership" on public.workspace_members;
 create policy "members read membership" on public.workspace_members for select using (public.is_workspace_member(workspace_id));
+drop policy if exists "owners manage membership" on public.workspace_members;
 create policy "owners manage membership" on public.workspace_members for all to authenticated using (exists(select 1 from public.workspaces w where w.id=workspace_id and w.owner_id=auth.uid())) with check (exists(select 1 from public.workspaces w where w.id=workspace_id and w.owner_id=auth.uid()));
 
+drop policy if exists "workspace scoped assistants" on public.assistants;
 create policy "workspace scoped assistants" on public.assistants for all to authenticated using (public.is_workspace_member(workspace_id)) with check (public.is_workspace_member(workspace_id));
+drop policy if exists "workspace scoped knowledge" on public.knowledge_documents;
 create policy "workspace scoped knowledge" on public.knowledge_documents for all to authenticated using (public.is_workspace_member(workspace_id)) with check (public.is_workspace_member(workspace_id));
+drop policy if exists "workspace scoped leads" on public.leads;
 create policy "workspace scoped leads" on public.leads for all to authenticated using (public.is_workspace_member(workspace_id)) with check (public.is_workspace_member(workspace_id));
+drop policy if exists "workspace scoped conversations" on public.conversations;
 create policy "workspace scoped conversations" on public.conversations for all to authenticated using (public.is_workspace_member(workspace_id)) with check (public.is_workspace_member(workspace_id));
+drop policy if exists "workspace scoped messages" on public.messages;
 create policy "workspace scoped messages" on public.messages for all to authenticated using (public.is_workspace_member(workspace_id)) with check (public.is_workspace_member(workspace_id));
+drop policy if exists "workspace scoped subscriptions" on public.subscriptions;
 create policy "workspace scoped subscriptions" on public.subscriptions for select to authenticated using (public.is_workspace_member(workspace_id));
 
 create or replace function public.create_workspace_for_new_user()
