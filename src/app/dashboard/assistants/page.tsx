@@ -30,7 +30,7 @@ export default async function AssistantsPage() {
 
   const [{ data: assistants }, { data: documents }] = await Promise.all([
     supabase.from("assistants")
-      .select("id,name,instructions,welcome_message,is_active,created_at")
+      .select("id,name,instructions,welcome_message,is_active,is_public,created_at")
       .eq("workspace_id", workspace.id)
       .order("created_at", { ascending: false }),
     supabase.from("knowledge_documents")
