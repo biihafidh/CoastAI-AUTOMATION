@@ -9,6 +9,7 @@ type Assistant = {
   instructions: string;
   welcome_message: string;
   is_active: boolean;
+  is_public: boolean;
   created_at: string;
 };
 
@@ -96,7 +97,7 @@ export default function AssistantManager({
           })
           .eq("id", selectedId)
           .eq("workspace_id", workspaceId)
-          .select("id,name,instructions,welcome_message,is_active,created_at")
+          .select("id,name,instructions,welcome_message,is_active,is_public,created_at")
           .single();
 
         if (saveError) throw saveError;
@@ -251,6 +252,19 @@ export default function AssistantManager({
               <h2>{selectedId ? "Configure assistant" : "Create assistant"}</h2>
             </div>
             {selectedAssistant && (
+              <div className="assistant-actions">
+              <button
+                type="button"
+                className={`assistant-status-button ${selectedAssistant.is_public ? "is-active" : ""}`}
+                onClick={async () => {
+                  setError(""); setNotice("");
+                  const nextPublic = !selectedAssistant.is_public;
+                  const { error: publishError } = await createClient().from("assistants").update({ is_public: nextPublic }).eq("id", selectedAssistant.id).eq("workspace_id", workspaceId);
+                  if (publishError) { setError(publishError.message); return; }
+                  setAssistants(current => current.map(item => item.id === selectedAssistant.id ? { ...item, is_public: nextPublic } : item));
+                  setNotice(nextPublic ? "Assistant published. Run the public-chat SQL migration before sharing it." : "Assistant unpublished.");
+                }}
+              >{selectedAssistant.is_public ? "Published" : "Publish to chat"}</button>
               <button
                 type="button"
                 className={`assistant-status-button ${selectedAssistant.is_active ? "is-active" : ""}`}
@@ -258,6 +272,7 @@ export default function AssistantManager({
               >
                 {selectedAssistant.is_active ? "Pause assistant" : "Activate assistant"}
               </button>
+              </div>
             )}
           </div>
 
