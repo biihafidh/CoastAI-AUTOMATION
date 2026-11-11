@@ -217,3 +217,5 @@ h1 span,.service-card>a,.service-number,.process-grid article>span { color:var(-
 .assistant-inline-link{color:#b8ff32;font-size:.8rem;font-weight:850}
 @media(max-width:950px){.assistant-manager{grid-template-columns:1fr}.assistant-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.assistant-list{grid-template-columns:1fr}.assistant-section-head{align-items:flex-start}.assistant-document{flex-direction:column}}
+
+.assistant-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
