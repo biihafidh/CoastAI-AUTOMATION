@@ -12,7 +12,15 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const [resending, setResending] = useState(false);
   const router = useRouter();
+
+  function getConfirmationRedirect() {
+    return new URL(
+      "/auth/callback?next=/dashboard",
+      window.location.origin
+    ).toString();
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,17 +30,12 @@ export default function SignupPage() {
 
     try {
       const supabase = createClient();
-      const emailRedirectTo = new URL(
-        "/auth/callback?next=/dashboard",
-        window.location.origin
-      ).toString();
-
       const { data, error: signupError } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: { business_name: businessName },
-          emailRedirectTo
+          emailRedirectTo: getConfirmationRedirect()
         }
       });
 
@@ -42,12 +45,37 @@ export default function SignupPage() {
         router.push("/dashboard");
         router.refresh();
       } else {
-        setMessage("Your account was created. Check your email for a confirmation link before signing in.");
+        setMessage("Your account was created. Check your email for a confirmation link. If you received an earlier link that points to localhost, use the Resend confirmation email option below.");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign up failed. Please try again.");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function resendConfirmation() {
+    setError("");
+    setMessage("");
+    if (!email.trim()) {
+      setError("Enter your registration email above first.");
+      return;
+    }
+
+    setResending(true);
+    try {
+      const supabase = createClient();
+      const { error: resendError } = await supabase.auth.resend({
+        type: "signup",
+        email: email.trim(),
+        options: { emailRedirectTo: getConfirmationRedirect() }
+      });
+      if (resendError) throw resendError;
+      setMessage("A new confirmation email has been requested. Open the newest email and use its confirmation link. Check Spam or Junk too.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to resend the confirmation email.");
+    } finally {
+      setResending(false);
     }
   }
 
@@ -70,6 +98,9 @@ export default function SignupPage() {
           </label>
           <button disabled={busy}>{busy ? "Creating account…" : "Create account →"}</button>
         </form>
+        <button type="button" className="auth-secondary-button" disabled={resending} onClick={resendConfirmation}>
+          {resending ? "Requesting email…" : "Resend confirmation email"}
+        </button>
         {error && <p className="auth-message">{error}</p>}
         {message && <p className="auth-message">{message}</p>}
         <p className="auth-foot">Already have an account? <Link href="/login">Sign in</Link></p>
