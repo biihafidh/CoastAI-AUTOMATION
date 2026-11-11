@@ -34,7 +34,7 @@ export async function GET() {
       supabaseUrlPreview: url.slice(0, 180),
       supabaseUrlLength: url.length,
       supabaseUrlHasLeadingOrTrailingWhitespace: rawUrl !== url,
-      supabaseUrlHasInternalWhitespace: /\\s/.test(url),
+      supabaseUrlHasInternalWhitespace: /\s/.test(url),
       supabaseUrlParseError: urlParseError,
       supabaseKeyPresent: keyPresent,
       supabasePublishableKeyPresent: Boolean(publishableKey),
