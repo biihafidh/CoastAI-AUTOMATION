@@ -4,7 +4,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ?? "";
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() ?? "";
+  const publishableKey =
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ?? "";
+  const legacyAnonKey =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() ?? "";
+  const keyPresent = Boolean(publishableKey || legacyAnonKey);
   let urlHost: string | null = null;
 
   try {
@@ -18,7 +22,9 @@ export async function GET() {
       supabaseUrlPresent: Boolean(url),
       supabaseUrlValid: Boolean(urlHost && urlHost !== "INVALID_URL"),
       supabaseUrlHost: urlHost,
-      supabaseKeyPresent: Boolean(anonKey),
+      supabaseKeyPresent: keyPresent,
+      supabasePublishableKeyPresent: Boolean(publishableKey),
+      supabaseLegacyAnonKeyPresent: Boolean(legacyAnonKey),
       environment: process.env.VERCEL_ENV ?? process.env.NODE_ENV ?? "unknown"
     },
     { headers: { "Cache-Control": "no-store, max-age=0" } }
