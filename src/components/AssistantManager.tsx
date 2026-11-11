@@ -113,7 +113,7 @@ export default function AssistantManager({
             welcome_message: draft.welcome_message.trim(),
             is_active: true
           })
-          .select("id,name,instructions,welcome_message,is_active,created_at")
+          .select("id,name,instructions,welcome_message,is_active,is_public,created_at")
           .single();
 
         if (createError) throw createError;
