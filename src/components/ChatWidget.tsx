@@ -38,6 +38,7 @@ export default function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message,
+          assistantId: process.env.NEXT_PUBLIC_COASTAI_ASSISTANT_ID || undefined,
           history: nextMessages.slice(-7, -1),
         }),
       });
