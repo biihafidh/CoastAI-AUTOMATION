@@ -1,12 +1,14 @@
-const DEFAULT_MODEL = "gpt-4.1-mini";
+const DEFAULT_MODEL = "gemini-4-hydrogen";
+
+type ChatMessage = { role: "assistant" | "user"; content: string };
 
 export async function generateCustomerReply(
   message: string,
-  history: { role: "assistant" | "user"; content: string }[] = [],
+  history: ChatMessage[] = [],
   assistantContext?: { name: string; instructions: string; knowledge: { title: string; content: string }[] }
 ) {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
+  const apiKey = process.env.GEMINI_API_KEY?.trim();
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not configured");
 
   const baseInstructions = [
     "You are CoastAI's friendly customer assistant for a business serving hotels, tour operators, and service businesses.",
@@ -27,28 +29,50 @@ export async function generateCustomerReply(
       ].join("\n\n")
     : "";
 
-  const response = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: process.env.OPENAI_MODEL || DEFAULT_MODEL,
-      instructions: [...baseInstructions, contextInstructions].filter(Boolean).join("\n\n"),
-      input: [...history.slice(-6), { role: "user", content: message }],
-      max_output_tokens: 300,
-    }),
-  });
+  const systemInstruction = [...baseInstructions, contextInstructions].filter(Boolean).join("\n\n");
+  const contents = [
+    ...history.slice(-6).map((item) => ({
+      role: item.role === "assistant" ? "model" : "user",
+      parts: [{ text: item.content }]
+    })),
+    { role: "user", parts: [{ text: message }] }
+  ];
+
+  const model = process.env.GEMINI_MODEL?.trim() || DEFAULT_MODEL;
+  const response = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey
+      },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemInstruction }] },
+        contents,
+        generationConfig: { maxOutputTokens: 300 }
+      })
+    }
+  );
 
   if (!response.ok) {
     const details = await response.text();
-    console.error("OpenAI response error:", response.status, details.slice(0, 1000));
-    throw new Error("AI response request failed");
+    console.error("Gemini response error:", response.status, details.slice(0, 1000));
+    throw new Error("Gemini response request failed");
   }
 
   const data = await response.json();
-  const reply = typeof data.output_text === "string" ? data.output_text.trim() : "";
-  if (!reply) throw new Error("AI returned an empty response");
+  const reply = Array.isArray(data.candidates?.[0]?.content?.parts)
+    ? data.candidates[0].content.parts
+        .map((part: { text?: string }) => typeof part.text === "string" ? part.text : "")
+        .join("")
+        .trim()
+    : "";
+
+  if (!reply) {
+    console.error("Gemini returned no text:", JSON.stringify(data).slice(0, 1000));
+    throw new Error("Gemini returned an empty response");
+  }
+
   return reply;
 }
