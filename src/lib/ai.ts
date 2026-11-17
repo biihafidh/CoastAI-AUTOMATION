@@ -1,4 +1,4 @@
-const DEFAULT_MODEL = "gemini-4-hydrogen";
+const DEFAULT_MODEL = "gemini-3.8-flash";
 
 type ChatMessage = { role: "assistant" | "user"; content: string };
 
