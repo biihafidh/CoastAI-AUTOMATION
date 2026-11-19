@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: siteUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: siteUrl + "/ai-automation-for-small-businesses", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: siteUrl + "/ai-automation-for-ecommerce", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/login", changeFrequency: "monthly", priority: 0.2 },
     { url: siteUrl + "/signup", changeFrequency: "monthly", priority: 0.3 }
   ];
