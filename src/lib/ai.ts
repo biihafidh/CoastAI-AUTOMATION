@@ -39,27 +39,58 @@ export async function generateCustomerReply(
   ];
 
   const model = process.env.GEMINI_MODEL?.trim() || DEFAULT_MODEL;
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemInstruction }] },
-        contents,
-        generationConfig: { maxOutputTokens: 300 }
-      })
-    }
+  const modelsToTry = [model, "gemini-3.5-flash-lite"].filter(
+    (value, index, all) => all.indexOf(value) === index
   );
 
-  if (!response.ok) {
-    const details = await response.text();
-    console.error("Gemini response error:", response.status, details.slice(0, 1000));
-    throw new Error("Gemini response request failed");
+  let response: Response | undefined;
+  for (const candidateModel of modelsToTry) {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(candidateModel)}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey
+          },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: systemInstruction }] },
+            contents,
+            generationConfig: { maxOutputTokens: 300 }
+          })
+        }
+      );
+
+      if (response.ok) break;
+
+      const retryable = [500, 502, 503, 504].includes(response.status);
+      if (!retryable) {
+        const details = await response.text();
+        console.error("Gemini response error:", response.status, details.slice(0, 1000));
+        throw new Error("Gemini response request failed");
+      }
+
+      const details = await response.text();
+      console.error(
+        `Gemini ${candidateModel} temporary error (attempt ${attempt + 1}/3):`,
+        response.status,
+        details.slice(0, 500)
+      );
+
+      if (attempt < 2) {
+        await new Promise((resolve) => setTimeout(resolve, 700 * (2 ** attempt)));
+      }
+    }
+
+    if (response?.ok) break;
+    if (candidateModel === modelsToTry[modelsToTry.length - 1]) {
+      throw new Error("Gemini models are temporarily unavailable");
+    }
+    console.warn(`Gemini model ${candidateModel} unavailable; trying fallback model.`);
   }
+
+  if (!response?.ok) throw new Error("Gemini models are temporarily unavailable");
 
   const data = await response.json();
   const reply = Array.isArray(data.candidates?.[0]?.content?.parts)
