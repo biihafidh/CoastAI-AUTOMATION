@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteUrl + "/ai-automation-for-beauty-salons-wellness", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/ai-automation-for-professional-services", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/ai-automation-for-agriculture-agribusiness", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: siteUrl + "/ai-automation-for-manufacturing-industrial", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/login", changeFrequency: "monthly", priority: 0.2 },
     { url: siteUrl + "/signup", changeFrequency: "monthly", priority: 0.3 }
   ];
