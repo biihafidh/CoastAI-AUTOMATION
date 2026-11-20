@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: siteUrl + "/ai-automation-for-real-estate", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/ai-automation-for-healthcare", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/ai-automation-for-education", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: siteUrl + "/ai-automation-for-retail", lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: siteUrl + "/login", changeFrequency: "monthly", priority: 0.2 },
     { url: siteUrl + "/signup", changeFrequency: "monthly", priority: 0.3 }
   ];
